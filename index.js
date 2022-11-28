@@ -146,6 +146,17 @@ app.get('/setor/:nomeSetor', (req, res) => {
 
   return res.status(200).json(processosBySetor);
 });
+// Rota: "/random"
+app.get('/random', (req, res) => {
+  console.log('dentro do "/random" ---------');
+  let sorteado = Math.floor(bancoDados.length * Math.random());
+  console.log(sorteado, 'sorteado');
+  //
+  /* const index = bancoDados.indexOf(processById);
+      console.log(index, 'index do get'); */
+
+  return res.status(200).json(bancoDados[sorteado]);
+});
 //------------------------------------------
 //------------------------------------------
 //listening port
