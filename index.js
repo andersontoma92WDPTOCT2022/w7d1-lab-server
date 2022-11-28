@@ -1,7 +1,16 @@
 // ARQUIVO PRINCIPAL - using ES6
 import express from 'express';
 import * as dotenv from 'dotenv';
+//gerador de id
+//import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
+//teste uuid
+console.log('*************************');
 
+let myuuid = uuidv4();
+console.log('Your UUID is: ' + myuuid);
+
+console.log('*************************');
 // habilitr o servidor a ter variáveis de ambiente
 dotenv.config();
 
