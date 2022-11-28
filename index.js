@@ -85,6 +85,18 @@ app.get('/process/:id', (req, res) => {
   return res.status(200).json(processById);
 });
 //
+//Editar processo PUT /edit/:id
+app.put('/edit/:id', (req, res) => {
+  const { id } = req.params;
+  const processById = bancoDados.find((processo) => processo.id === id);
+  const index = bancoDados.indexOf(processById);
+  bancoDados[index] = {
+    ...processById,
+    ...req.body, //por último quem quero substituir
+  };
+  return res.status(200).json(bancoDados[index]);
+});
+//
 // Adicionar um comentário a array de comentários PUT /addComment/:id
 //
 app.put('/addComment/:id', (req, res) => {
