@@ -127,6 +127,25 @@ app.get('/status/close', (req, res) => {
 
   return res.status(200).json(arrProcessById);
 });
+//
+// bonus
+//Rota: "/setor/:nomeSetor"
+app.get('/setor/:nomeSetor', (req, res) => {
+  console.log('dentro do /setor/:nomeSetor ---------');
+  console.log(req.params);
+  const { nomeSetor } = req.params;
+  console.log(nomeSetor, ' Setor descontruido');
+
+  const processosBySetor = bancoDados.filter((processo) => {
+    return processo.setor === nomeSetor;
+  });
+  console.log(processosBySetor, 'processosBySetor a retornar GET');
+  //
+  /* const index = bancoDados.indexOf(processById);
+    console.log(index, 'index do get'); */
+
+  return res.status(200).json(processosBySetor);
+});
 //------------------------------------------
 //------------------------------------------
 //listening port
