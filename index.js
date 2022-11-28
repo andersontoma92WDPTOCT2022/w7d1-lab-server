@@ -15,6 +15,11 @@ app.use(express.json());
 const bancoDados = [];
 // lab - rotas
 //------------------------------------------
+//------------------------------------------
+// -- iteração 01
+//------------------------------------------
+//------------------------------------------
+
 // postar - criar novo
 app.post('/create', (req, res) => {
   const form = req.body;
@@ -33,6 +38,7 @@ app.get('/all', (req, res) => {
 //------------------------------------------
 //delete
 app.delete('/delete/:id', (req, res) => {
+  console.log('dentro do delete----------------');
   console.log(req.params);
   const { id } = req.params;
   console.log(id, 'id descontruido');
@@ -40,14 +46,93 @@ app.delete('/delete/:id', (req, res) => {
   const deleteById = bancoDados.find((user) => {
     user.id === id;
   });
+  console.log(deleteById, 'deleteByID');
   const index = bancoDados.indexOf(deleteById);
 
   bancoDados.splice(index, 1);
 
   return res.status(200).json();
 });
+//------------------------------------------
+//------------------------------------------
+// -- iteração 02 - TREINANDO ROTAS
+//------------------------------------------
+//------------------------------------------
+//Acessar um processo pelo ID GET /process/:id
+app.get('/process/:id', (req, res) => {
+  console.log('dentro do /process/:id ---------');
+  console.log(req.params);
+  const { id } = req.params;
+  console.log(id, 'id descontruido');
 
+  const processById = bancoDados.find((processo) => {
+    return processo.id === id;
+  });
+  console.log(processById, 'processByID a retornar GET');
+  //
+  /* const index = bancoDados.indexOf(processById);
+  console.log(index, 'index do get'); */
+
+  return res.status(200).json(processById);
+});
+//
+// Adicionar um comentário a array de comentários PUT /addComment/:id
+//
+app.put('/addComment/:id', (req, res) => {
+  console.log('******** dentro do PUT /addComment/:id *********');
+  console.log(req.params);
+  console.log(req.body.comment, '<--req.body');
+  const { id } = req.params;
+
+  const processById = bancoDados.find((processo) => {
+    return processo.id === id;
+  });
+  processById.comments.push(req.body.comment);
+  console.log(processById, 'processByID a retornar GET');
+  //
+  /* const index = bancoDados.indexOf(processById);
+    console.log(index, 'index do get'); */
+
+  return res.status(200).json(processById);
+});
+//
+//Acessar todos processos em andamento GET /status/open
+//
+app.get('/status/open', (req, res) => {
+  console.log('dentro do /status/open ---------');
+  const estado = 'Em andamento';
+  const arrProcessById = bancoDados.filter((processo) => {
+    return processo.status === estado;
+  });
+  console.log(arrProcessById, 'arrProcessById a retornar GET em andamento');
+  //
+  /* const index = bancoDados.indexOf(processById);
+    console.log(index, 'index do get'); */
+
+  return res.status(200).json(arrProcessById);
+});
+//
+//Acessar todos processos finalizados GET /status/close
+//
+app.get('/status/close', (req, res) => {
+  console.log('dentro do /status/open ---------');
+  const estado = 'Finalizado';
+  const arrProcessById = bancoDados.filter((processo) => {
+    return processo.status === estado;
+  });
+  console.log(arrProcessById, 'arrProcessById a retornar GET em andamento');
+  //
+  /* const index = bancoDados.indexOf(processById);
+      console.log(index, 'index do get'); */
+
+  return res.status(200).json(arrProcessById);
+});
+//------------------------------------------
+//------------------------------------------
 //listening port
+//------------------------------------------
+//------------------------------------------
+
 app.listen(process.env.PORT, () => {
   console.log(`app runing at port http://localhost:${process.env.PORT}`);
 }); //o site onde vamos deployar será 8080
