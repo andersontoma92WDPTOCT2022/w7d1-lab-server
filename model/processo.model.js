@@ -20,7 +20,7 @@ const processoSchema = new Schema({
     maxlength: 200,
   },
   dateInit: {
-    type: String,
+    type: Date,
     required: false,
   },
   comments: {
@@ -29,7 +29,7 @@ const processoSchema = new Schema({
     required: false,
   },
   dateEnd: {
-    type: String,
+    type: Date,
     required: false,
   },
   setor: {
