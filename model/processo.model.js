@@ -6,7 +6,8 @@ const processoSchema = new Schema({
     required: true,
     trim: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 60,
+    lowercase: true,
   },
   status: {
     type: String,
@@ -20,22 +21,20 @@ const processoSchema = new Schema({
     maxlength: 200,
   },
   dateInit: {
-    type: Date,
+    type: String,
     required: false,
   },
-  comments: {
-    type: Array,
-    trim: true,
-    required: false,
-  },
+  comments: [{ type: String }],
   dateEnd: {
-    type: Date,
+    type: String,
     required: false,
   },
   setor: {
     type: String,
     trim: true,
-    length: 3,
   },
 });
-export default processoSchema;
+//Processo = nome do collection, Copass, vai passar para o minusculo a primeira letra e por um s no final (plural) -> collection 'processos'
+const ProcessoModel = model('Processo', processoSchema);
+
+export default ProcessoModel;

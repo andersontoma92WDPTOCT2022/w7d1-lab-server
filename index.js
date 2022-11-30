@@ -1,28 +1,30 @@
 // ARQUIVO PRINCIPAL - using ES6
 import express from 'express';
 import * as dotenv from 'dotenv';
+import connect from './config/db.config.js';
 //gerador de id
 //import { uuid } from 'uuidv4';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 //teste uuid
 import processoRoute from './routes/processos.routes.js';
 //
 console.log('*************************');
 
+/* 
 let myuuid = uuidv4();
 console.log('Your UUID is: ' + myuuid);
-
+ */
 console.log('*************************');
 // habilitr o servidor a ter variáveis de ambiente
 dotenv.config();
-
+connect();
 // instanciar a variável que vai ficar responsável pelo servidor -> app
 const app = express();
 
 //configurar servidor para aceitar enviar receber rquivos json
 app.use(express.json());
 
-//
+//o /processo vai intercalar com as rotas do processos.routes
 app.use('/processo', processoRoute);
 
 app.listen(process.env.PORT, () => {
